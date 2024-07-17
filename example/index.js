@@ -1,7 +1,7 @@
 import * as rln from "@waku/rln";
 
-rln.create().then(async (rlnInstance) => {
-  const credentials = rlnInstance.generateIdentityCredentials();
+rln.createRLN().then(async (rlnInstance) => {
+  const credentials = rlnInstance.zerokit.generateIdentityCredentials();
 
   //peer's index in the Merkle Tree
   const index = 5;
@@ -10,11 +10,11 @@ rln.create().then(async (rlnInstance) => {
   for (let i = 0; i < 10; i++) {
     if (i == index) {
       // insert the current peer's pk
-      rlnInstance.insertMember(credentials.IDCommitment);
+      rlnInstance.zerokit.insertMember(credentials.IDCommitment);
     } else {
       // create a new key pair
-      const credentials = rlnInstance.generateIdentityCredentials(); // TODO: handle error
-      rlnInstance.insertMember(credentials.IDCommitment);
+      const credentials = rlnInstance.zerokit.generateIdentityCredentials(); // TODO: handle error
+      rlnInstance.zerokit.insertMember(credentials.IDCommitment);
     }
   }
 
@@ -28,7 +28,7 @@ rln.create().then(async (rlnInstance) => {
 
   console.log("Generating proof...");
   console.time("proof_gen_timer");
-  let proof = await rlnInstance.generateRLNProof(
+  let proof = await rlnInstance.zerokit.generateRLNProof(
     uint8Msg,
     index,
     epoch,
@@ -39,7 +39,7 @@ rln.create().then(async (rlnInstance) => {
 
   try {
     // verify the proof
-    let verifResult = rlnInstance.verifyRLNProof(proof, uint8Msg);
+    let verifResult = rlnInstance.zerokit.verifyRLNProof(proof, uint8Msg);
     console.log("Is proof verified?", verifResult ? "yes" : "no");
   } catch (err) {
     console.log("Invalid proof");

@@ -86,7 +86,7 @@ await rlnInstance.start(); // will use default Sepolia contract
 #### Generating RLN Membership Credentials
 
 ```js
-let credentials = rlnInstance.generateIdentityCredentials();
+let credentials = rlnInstance.zerokit.generateIdentityCredentials();
 ```
 
 ### Generating RLN Membership Keypair Using a Seed
@@ -94,13 +94,13 @@ let credentials = rlnInstance.generateIdentityCredentials();
 This can be used to generate credentials from a signature hash (e.g. signed by an Ethereum account).
 
 ```js
-let credentials = rlnInstance.generateSeededIdentityCredentials(seed);
+let credentials = rlnInstance.zerokit.generateSeededIdentityCredential(seed);
 ```
 
 ### Adding Membership Keys Into Merkle Tree
 
 ```js
-rlnInstance.insertMember(credentials.IDCommitment);
+rlnInstance.zerokit.insertMember(credentials.IDCommitment);
 ```
 
 ### Registering Membership on a contract
@@ -126,7 +126,7 @@ const uint8Msg = Uint8Array.from(
 const epoch = new Uint8Array(32);
 
 // generating a proof
-const proof = await rlnInstance.generateProof(
+const proof = await rlnInstance.zerokit.generateRLNProof(
   uint8Msg,
   index,
   epoch,
@@ -139,7 +139,7 @@ const proof = await rlnInstance.generateProof(
 ```js
 try {
   // verify the proof
-  const verificationResult = rlnInstance.verifyProof(proof, uint8Msg);
+  const verificationResult = rlnInstance.zerokit.verifyRLNProof(proof, uint8Msg);
   console.log("Is proof verified?", verificationResult ? "yes" : "no");
 } catch (err) {
   console.log("Invalid proof");
