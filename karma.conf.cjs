@@ -26,7 +26,7 @@ module.exports = function (config) {
     ],
     envPreprocessor: ["CI"],
     reporters: ["progress"],
-    browsers: ["ChromeHeadless"],
+    browsers: ["ChromiumHeadless"],
     pingTimeout: 60000,
     singleRun: true,
     client: {
