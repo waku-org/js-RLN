@@ -5,14 +5,42 @@ export const RLN_V2_ABI = [
     stateMutability: "nonpayable"
   },
   {
+    type: "error",
+    name: "DuplicateIdCommitment",
+    inputs: []
+  },
+  {
+    type: "error",
+    name: "InvalidIdCommitment",
+    inputs: [
+      {
+        name: "idCommitment",
+        type: "uint256"
+      }
+    ]
+  },
+  {
+    type: "error",
+    name: "InvalidPaginationQuery",
+    inputs: [
+      {
+        name: "startIndex",
+        type: "uint256"
+      },
+      {
+        name: "endIndex",
+        type: "uint256"
+      }
+    ]
+  },
+  {
     type: "function",
     name: "MAX_MEMBERSHIP_SET_SIZE",
     inputs: [],
     outputs: [
       {
         name: "",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       }
     ],
     stateMutability: "view"
@@ -24,8 +52,7 @@ export const RLN_V2_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint8",
-        internalType: "uint8"
+        type: "uint8"
       }
     ],
     stateMutability: "view"
@@ -37,8 +64,7 @@ export const RLN_V2_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint256",
-        internalType: "uint256"
+        type: "uint256"
       }
     ],
     stateMutability: "view"
@@ -50,8 +76,7 @@ export const RLN_V2_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       }
     ],
     stateMutability: "view"
@@ -63,8 +88,7 @@ export const RLN_V2_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint256",
-        internalType: "uint256"
+        type: "uint256"
       }
     ],
     stateMutability: "view"
@@ -76,8 +100,7 @@ export const RLN_V2_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       }
     ],
     stateMutability: "view"
@@ -88,20 +111,17 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "holder",
-        type: "address",
-        internalType: "address"
+        type: "address"
       },
       {
         name: "token",
-        type: "address",
-        internalType: "address"
+        type: "address"
       }
     ],
     outputs: [
       {
         name: "balance",
-        type: "uint256",
-        internalType: "uint256"
+        type: "uint256"
       }
     ],
     stateMutability: "view"
@@ -112,8 +132,7 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "idCommitments",
-        type: "uint256[]",
-        internalType: "uint256[]"
+        type: "uint256[]"
       }
     ],
     outputs: [],
@@ -125,13 +144,11 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "idCommitments",
-        type: "uint256[]",
-        internalType: "uint256[]"
+        type: "uint256[]"
       },
       {
         name: "eraseFromMembershipSet",
-        type: "bool",
-        internalType: "bool"
+        type: "bool"
       }
     ],
     outputs: [],
@@ -143,8 +160,7 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "idCommitments",
-        type: "uint256[]",
-        internalType: "uint256[]"
+        type: "uint256[]"
       }
     ],
     outputs: [],
@@ -156,25 +172,21 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "idCommitment",
-        type: "uint256",
-        internalType: "uint256"
+        type: "uint256"
       }
     ],
     outputs: [
       {
         name: "",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       },
       {
         name: "",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       },
       {
         name: "",
-        type: "uint256",
-        internalType: "uint256"
+        type: "uint256"
       }
     ],
     stateMutability: "view"
@@ -185,15 +197,13 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "index",
-        type: "uint40",
-        internalType: "uint40"
+        type: "uint40"
       }
     ],
     outputs: [
       {
         name: "",
-        type: "uint256[20]",
-        internalType: "uint256[20]"
+        type: "uint256[20]"
       }
     ],
     stateMutability: "view"
@@ -204,20 +214,17 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "startIndex",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       },
       {
         name: "endIndex",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       }
     ],
     outputs: [
       {
         name: "",
-        type: "uint256[]",
-        internalType: "uint256[]"
+        type: "uint256[]"
       }
     ],
     stateMutability: "view"
@@ -229,27 +236,7 @@ export const RLN_V2_ABI = [
     outputs: [
       {
         name: "",
-        type: "uint32",
-        internalType: "uint32"
-      }
-    ],
-    stateMutability: "view"
-  },
-  {
-    type: "function",
-    name: "indicesOfLazilyErasedMemberships",
-    inputs: [
-      {
-        name: "",
-        type: "uint256",
-        internalType: "uint256"
-      }
-    ],
-    outputs: [
-      {
-        name: "",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       }
     ],
     stateMutability: "view"
@@ -260,33 +247,27 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "_priceCalculator",
-        type: "address",
-        internalType: "address"
+        type: "address"
       },
       {
         name: "_maxTotalRateLimit",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       },
       {
         name: "_minMembershipRateLimit",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       },
       {
         name: "_maxMembershipRateLimit",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       },
       {
         name: "_activeDuration",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       },
       {
         name: "_gracePeriod",
-        type: "uint32",
-        internalType: "uint32"
+        type: "uint32"
       }
     ],
     outputs: [],
@@ -298,17 +279,114 @@ export const RLN_V2_ABI = [
     inputs: [
       {
         name: "_idCommitment",
-        type: "uint256",
-        internalType: "uint256"
+        type: "uint256"
       }
     ],
     outputs: [
       {
         name: "",
-        type: "bool",
-        internalType: "bool"
+        type: "bool"
       }
     ],
     stateMutability: "view"
+  },
+  {
+    type: "function",
+    name: "register",
+    inputs: [
+      {
+        name: "idCommitment",
+        type: "uint256"
+      },
+      {
+        name: "rateLimit",
+        type: "uint32"
+      },
+      {
+        name: "idCommitmentsToErase",
+        type: "uint256[]"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "function",
+    name: "registerWithPermit",
+    inputs: [
+      {
+        name: "owner",
+        type: "address"
+      },
+      {
+        name: "deadline",
+        type: "uint256"
+      },
+      {
+        name: "v",
+        type: "uint8"
+      },
+      {
+        name: "r",
+        type: "bytes32"
+      },
+      {
+        name: "s",
+        type: "bytes32"
+      },
+      {
+        name: "idCommitment",
+        type: "uint256"
+      },
+      {
+        name: "rateLimit",
+        type: "uint32"
+      },
+      {
+        name: "idCommitmentsToErase",
+        type: "uint256[]"
+      }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  {
+    type: "event",
+    name: "MembershipRegistered",
+    inputs: [
+      {
+        name: "idCommitment",
+        type: "uint256",
+        indexed: false
+      },
+      {
+        name: "rateLimit",
+        type: "uint32",
+        indexed: false
+      },
+      {
+        name: "index",
+        type: "uint256",
+        indexed: false
+      }
+    ],
+    anonymous: false
+  },
+  {
+    type: "event",
+    name: "MembershipRemoved",
+    inputs: [
+      {
+        name: "idCommitment",
+        type: "uint256",
+        indexed: false
+      },
+      {
+        name: "index",
+        type: "uint256",
+        indexed: false
+      }
+    ],
+    anonymous: false
   }
 ];
