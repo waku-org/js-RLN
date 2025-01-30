@@ -76,6 +76,10 @@ type StartRLNOptions = {
    * If provided used for validating the network chainId and connecting to registry contract.
    */
   credentials?: EncryptedCredentials | DecryptedCredentials;
+  /**
+   * Rate limit for the member.
+   */
+  rateLimit?: number;
 };
 
 type RegisterMembershipOptions =
