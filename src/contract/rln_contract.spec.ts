@@ -74,10 +74,10 @@ describe("RLN Contract abstraction - RLN v2", () => {
       provider
     );
     const rlnContract = await RLNContract.init(rlnInstance, {
-      registryAddress: SEPOLIA_CONTRACT.address,
+      address: SEPOLIA_CONTRACT.address,
       signer: voidSigner,
-      storageIndex: 0,
-      registryContract: mockedRegistryContract as unknown as ethers.Contract
+      rateLimit: 0,
+      contract: mockedRegistryContract as unknown as ethers.Contract
     });
 
     await rlnContract.fetchMembers(rlnInstance, {
@@ -159,10 +159,10 @@ describe("RLN Contract abstraction - RLN v2", () => {
       provider
     );
     const rlnContract = await RLNContract.init(rlnInstance, {
-      registryAddress: SEPOLIA_CONTRACT.address,
       signer: voidSigner,
-      storageIndex: 0,
-      registryContract: mockedRegistryContract as unknown as ethers.Contract
+      address: SEPOLIA_CONTRACT.address,
+      rateLimit: 0,
+      contract: mockedRegistryContract as unknown as ethers.Contract
     });
 
     const registerSpy = chai.spy.on(mockedRegistryContract, "register");

@@ -70,7 +70,7 @@ type StartRLNOptions = {
   /**
    * If not set - will use default SEPOLIA_CONTRACT address.
    */
-  registryAddress?: string;
+  address?: string;
   /**
    * Credentials to use for generating proofs and connecting to the contract and network.
    * If provided used for validating the network chainId and connecting to registry contract.
@@ -116,7 +116,7 @@ export class RLNInstance {
     try {
       const { credentials, keystore } =
         await RLNInstance.decryptCredentialsIfNeeded(options.credentials);
-      const { signer, registryAddress } = await this.determineStartOptions(
+      const { signer, address } = await this.determineStartOptions(
         options,
         credentials
       );
@@ -128,9 +128,9 @@ export class RLNInstance {
       this._credentials = credentials;
       this._signer = signer!;
       this._contract = await RLNContract.init(this, {
-        registryAddress: registryAddress!,
+        address: address!,
         signer: signer!,
-        storageIndex: 0
+        rateLimit: 0
       });
       this.started = true;
     } finally {
@@ -143,12 +143,12 @@ export class RLNInstance {
     credentials: KeystoreEntity | undefined
   ): Promise<StartRLNOptions> {
     let chainId = credentials?.membership.chainId;
-    const registryAddress =
+    const address =
       credentials?.membership.address ||
-      options.registryAddress ||
+      options.address ||
       SEPOLIA_CONTRACT.address;
 
-    if (registryAddress === SEPOLIA_CONTRACT.address) {
+    if (address === SEPOLIA_CONTRACT.address) {
       chainId = SEPOLIA_CONTRACT.chainId;
     }
 
@@ -163,7 +163,7 @@ export class RLNInstance {
 
     return {
       signer,
-      registryAddress
+      address
     };
   }
 

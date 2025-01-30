@@ -25,8 +25,8 @@ interface Member {
 
 interface RLNContractOptions {
   signer: ethers.Signer;
-  registryAddress: string;
-  storageIndex: number;
+  address: string;
+  rateLimit: number;
 }
 
 interface FetchMembersOptions {
@@ -36,7 +36,7 @@ interface FetchMembersOptions {
 }
 
 interface RLNContractInitOptions extends RLNContractOptions {
-  registryContract?: ethers.Contract;
+  contract?: ethers.Contract;
 }
 
 export class RLNContract {
@@ -44,7 +44,7 @@ export class RLNContract {
   private merkleRootTracker: MerkleRootTracker;
 
   private deployBlock: undefined | number;
-  private storageIndex: number;
+  private rateLimit: number;
   private _membersFilter: ethers.EventFilter;
   private _membersRemovedFilter: ethers.EventFilter;
 
@@ -57,20 +57,19 @@ export class RLNContract {
     rlnInstance: RLNInstance,
     options: RLNContractInitOptions
   ) {
-    const { registryAddress, signer, storageIndex, registryContract } = options;
+    const { address, signer, rateLimit, contract } = options;
 
-    if (storageIndex === undefined) {
-      throw new Error("storageIndex must be provided in RLNContractOptions.");
+    if (rateLimit === undefined) {
+      throw new Error("rateLimit must be provided in RLNContractOptions.");
     }
 
-    this.storageIndex = storageIndex;
+    this.rateLimit = rateLimit;
 
     const initialRoot = rlnInstance.zerokit.getMerkleRoot();
 
     // Use the injected registryContract if provided; otherwise, instantiate a new one.
     this.contract =
-      registryContract ||
-      new ethers.Contract(registryAddress, RLN_V2_ABI, signer);
+      contract || new ethers.Contract(address, RLN_V2_ABI, signer);
     this.merkleRootTracker = new MerkleRootTracker(5, initialRoot);
 
     // Initialize event filters for MembershipRegistered and MembershipRemoved
@@ -249,7 +248,7 @@ export class RLNContract {
       const txRegisterResponse: ethers.ContractTransaction =
         await this.contract.register(
           identity.IDCommitmentBigInt,
-          this.storageIndex,
+          this.rateLimit,
           [],
           { gasLimit: 300000 }
         );
@@ -307,7 +306,7 @@ export class RLNContract {
           permit.r,
           permit.s,
           identity.IDCommitmentBigInt,
-          this.storageIndex,
+          this.rateLimit,
           idCommitmentsToErase.map((id) => ethers.BigNumber.from(id))
         );
       const txRegisterReceipt = await txRegisterResponse.wait();
