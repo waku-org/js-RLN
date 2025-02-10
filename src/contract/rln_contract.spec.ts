@@ -14,7 +14,8 @@ import { RLNContract } from "./rln_contract.js";
 chai.use(spies);
 chai.use(chaiAsPromised);
 
-const DEFAULT_RATE_LIMIT = 10;
+// Use the minimum allowed rate limit from RATE_LIMIT_TIERS
+const DEFAULT_RATE_LIMIT = 20;
 
 function mockRLNv2RegisteredEvent(idCommitment?: string): ethers.Event {
   return {
@@ -77,7 +78,7 @@ describe("RLN Contract abstraction - RLN v2", () => {
     rlnContract = await RLNContract.init(rlnInstance, {
       address: SEPOLIA_CONTRACT.address,
       signer: voidSigner,
-      rateLimit: mockRateLimits.minRate,
+      rateLimit: DEFAULT_RATE_LIMIT,
       contract: mockedRegistryContract as unknown as ethers.Contract
     });
   });
@@ -151,7 +152,7 @@ describe("RLN Contract abstraction - RLN v2", () => {
     const rlnContract = await RLNContract.init(rlnInstance, {
       address: SEPOLIA_CONTRACT.address,
       signer: voidSigner,
-      rateLimit: 0,
+      rateLimit: DEFAULT_RATE_LIMIT,
       contract: mockedRegistryContract as unknown as ethers.Contract
     });
 
@@ -200,7 +201,7 @@ describe("RLN Contract abstraction - RLN v2", () => {
                 event: "MembershipRegistered",
                 args: {
                   idCommitment: formatIdCommitment(identity.IDCommitmentBigInt),
-                  rateLimit: 0,
+                  rateLimit: DEFAULT_RATE_LIMIT,
                   index: ethers.BigNumber.from(1)
                 }
               }
@@ -236,7 +237,7 @@ describe("RLN Contract abstraction - RLN v2", () => {
     const rlnContract = await RLNContract.init(rlnInstance, {
       signer: voidSigner,
       address: SEPOLIA_CONTRACT.address,
-      rateLimit: 0,
+      rateLimit: DEFAULT_RATE_LIMIT,
       contract: mockedRegistryContract as unknown as ethers.Contract
     });
 
@@ -251,9 +252,14 @@ describe("RLN Contract abstraction - RLN v2", () => {
 
     chai
       .expect(registerSpy)
-      .to.have.been.called.with(identity.IDCommitmentBigInt, 0, [], {
-        gasLimit: 300000
-      });
+      .to.have.been.called.with(
+        identity.IDCommitmentBigInt,
+        DEFAULT_RATE_LIMIT,
+        [],
+        {
+          gasLimit: 300000
+        }
+      );
 
     chai.expect(decryptedCredentials).to.have.property("identity");
     chai.expect(decryptedCredentials).to.have.property("membership");
