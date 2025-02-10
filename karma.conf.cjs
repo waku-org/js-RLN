@@ -1,8 +1,5 @@
 const path = require("path");
 const webpack = require("webpack");
-const playwright = require('playwright');
-
-process.env.CHROME_BIN = playwright.chromium.executablePath();
 
 const output = {
   path: path.join(__dirname, "dist"),
@@ -26,7 +23,7 @@ module.exports = function (config) {
     ],
     envPreprocessor: ["CI"],
     reporters: ["progress"],
-    browsers: ["ChromiumHeadless"],
+    browsers: ["ChromeHeadless"],
     pingTimeout: 60000,
     singleRun: true,
     client: {
