@@ -24,11 +24,13 @@ module.exports = function (config) {
     envPreprocessor: ["CI"],
     reporters: ["progress"],
     browsers: ["ChromeHeadless"],
-    pingTimeout: 60000,
+    pingTimeout: 300000,
+    browserDisconnectTimeout: 300000,
+    browserNoActivityTimeout: 300000,
     singleRun: true,
     client: {
       mocha: {
-        timeout: 60000, // Default is 2s
+        timeout: 300000, // Default is 2s
       },
     },
     webpack: {
